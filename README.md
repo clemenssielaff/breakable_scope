@@ -175,5 +175,8 @@ The only potential hazard is the hardcoded name of our condition variable, which
 And that's that.
 
 Is it cool? Yes! 
-Does it make code hard to read/reason about/I hate macros? ...Maybe? You might stumble a bit the first time you see it, but I would argue that the `breakable_scope` may improve readability in situations that would otherwise require cod duplication or visible success-tracking variables at least.
-I see it as the fish-knife at the dinner table of control flow: You can certainly do without, but it's good to have it, when you do need it.
+
+Does it make code hard to read/reason about/I hate macros? ...Maybe?
+
+You might stumble a bit the first time you see it, but I would argue that the `breakable_scope` may improve readability in situations that would otherwise require code duplication or visible success-tracking variables at least.
+I see it as the fish knife at the dinner table of control flow: You can certainly do without, but it's good to have it, when you do need it.
