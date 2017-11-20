@@ -22,12 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-/// Takes two macros and concatenates them without whitespace in between.
-#ifndef MACRO_CONCAT
-#define MACRO_CONCAT_(A, B) A##B
-#define MACRO_CONCAT(A, B) MACRO_CONCAT_(A, B)
-#endif
-
 /// Use `breakable_scope` to write:
 ///
 ///     breakable_scope {
@@ -44,10 +38,10 @@
 /// If you exit the scope via `continue`, it will break the scope without
 /// executing the `else` section at the end.
 ///
-#define breakable_scope                                                        \
-  for (auto MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) = 0;       \
-       MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) < 2;            \
-       MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) += 1)           \
-    for (; MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) < 2;        \
-         MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) += 2)         \
-      if (MACRO_CONCAT(__breakable_scope_token_prefix_, __LINE__) < 1)
+#define breakable_scope                               \
+  for (auto __breakable_scope_condition_variable = 0; \
+       __breakable_scope_condition_variable < 2;      \
+       __breakable_scope_condition_variable += 1)     \
+    for (; __breakable_scope_condition_variable < 2;  \
+         __breakable_scope_condition_variable += 2)   \
+      if (__breakable_scope_condition_variable == 0)
