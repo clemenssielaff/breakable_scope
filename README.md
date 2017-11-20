@@ -142,7 +142,7 @@ breakable_scope {
 }
 ```
 
-A simple for-loop that is guaranteed to run only once and can be broken using `break`. We could stop right here...
+A simple `for` loop that is guaranteed to run only once and can be broken using `break`. We could stop right here...
 Or we could totally over-engineer it, to see if it is possible to mimic python's behaviour of a [`for-else` loop](http://book.pythontips.com/en/latest/for_-_else.html) (spoilers: yes we can -- also FYI: Python's `for` loop has an optional `else` clause, who knew?)
 
 The trick is to append an `if` statement to the `for` loop and ensure, that the loop runs again (to cover the `else` clause) should the `if` scope be broken:
