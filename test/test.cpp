@@ -7,7 +7,9 @@ TEST_CASE("Let a breakable scope run until it is finished",
           "[breakable_scope]") {
   int value = 0;
 
-  breakable_scope { value = 1; }
+  breakable_scope {
+    value = 1;
+  }
   else {
     value = 2;
   }
@@ -57,10 +59,60 @@ TEST_CASE("Nest breakable scopes", "[breakable_scope]") {
       break;
       value = 3;
     }
+    else {
+      value = 5;
+      break;
+      value = 6;
+    }
   }
   else {
-    value = 4;
+    value = 7;
   }
+  REQUIRE(value == 5);
+}
 
-  REQUIRE(value == 2);
+TEST_CASE("Break out of a nested else-clause", "[breakable_scope]") {
+  int i = 0;
+  breakable_scope {
+    i = 1;
+    breakable_scope {
+      i = 2;
+      break;
+      i = 3;
+    }
+    else {
+      i = 4;
+      break;
+      i = 5;
+    }
+    REQUIRE(i == 4);
+    i = 6;
+  }
+  else {
+    i = 7;
+  }
+  REQUIRE(i == 6);
+}
+
+TEST_CASE("Continue out of a nested else-clause", "[breakable_scope]") {
+  int i = 0;
+  breakable_scope {
+    i = 1;
+    breakable_scope {
+      i = 2;
+      break;
+      i = 3;
+    }
+    else {
+      i = 4;
+      continue;
+      i = 5;
+    }
+    REQUIRE(i == 4);
+    i = 6;
+  }
+  else {
+    i = 7;
+  }
+  REQUIRE(i == 6);
 }
