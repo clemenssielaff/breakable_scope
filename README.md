@@ -143,18 +143,20 @@ breakable_scope {
 ```
 
 A simple `for` loop that is guaranteed to run only once and can be broken using `break`. We could stop right here...
-Or we could totally over-engineer it, to see if it is possible to mimic Python's behaviour of a [`for-else` loop](http://book.pythontips.com/en/latest/for_-_else.html) (spoilers: yes we can -- also FYI: Python's `for` loop has an optional `else` clause, who knew?)
+Or we could totally over-engineer it, to see if it is possible to add an `else`-clause, somewhat similar to Python's [`for-else` loop](http://book.pythontips.com/en/latest/for_-_else.html), that is executed only if the scope is broken using `break` (spoilers: yes we can -- also FYI: Python's `for` loop has an optional `else` clause, who knew?).
 
-The trick is to append an `if` statement to the `for` loop and ensure, that the loop runs again (to cover the `else` clause) should the `if` scope be broken:
+Actually, the `for-else`-clause in Python is executed only if the `for` scope is exited normally and **not** with a `break`. While that makes sense for a loop-else construct, the same logic doesn't apply to a non-looping scope. Therefore we implement this behavior is exactly opposite the way Python does it.
+
+The trick is to append an `if` statement to the `for` loop and, using an integer instead of a boolean, ensuring that the loop runs again (to cover the `else` clause) should the `if` scope be broken:
 
 ```C++
 // DOESN'T WORK YET
-#define breakable_scope for(bool cond = true; cond; cond = false) if(cond)
+#define breakable_scope for(int i = 0; i < 2; ++i) if(cond)
 ```
 
 This way, the user can attach an `else` clause after the `breakable_scope` and it will be executed on the second run ... but only if there is **no** `break` statement in the condition scope. Which is kind of the opposite of what we want :(
 
-Fortunately, we can make things even more complicated. By adding yet another `for` loop in the mix and using an integer instead of a boolean, we get a working `breakable_scope` to impress our friends with:
+Fortunately, we can make things even more complicated. By adding yet another `for` loop in the mix we get a working `breakable_scope` to impress our friends with:
 
 ```C++
 // this is already almost the final breakable_scope macro
