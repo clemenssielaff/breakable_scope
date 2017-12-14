@@ -151,7 +151,7 @@ The trick is to append an `if` statement to the `for` loop and, using an integer
 
 ```C++
 // DOESN'T WORK YET
-#define breakable_scope for(int i = 0; i < 2; ++i) if(cond)
+#define breakable_scope for(int i = 0; i < 2; ++i) if (i == 0)
 ```
 
 This way, the user can attach an `else` clause after the `breakable_scope` and it will be executed on the second run ... but only if there is **no** `break` statement in the condition scope. Which is kind of the opposite of what we want :(
