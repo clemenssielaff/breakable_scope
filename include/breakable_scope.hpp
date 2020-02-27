@@ -38,10 +38,10 @@
 /// If you exit the scope via `continue`, it will break the scope without
 /// executing the `else` section at the end.
 ///
-#define breakable_scope                               \
-  for (auto __breakable_scope_condition_variable = 0; \
-       __breakable_scope_condition_variable < 2;      \
-       __breakable_scope_condition_variable += 1)     \
-    for (; __breakable_scope_condition_variable < 2;  \
-         __breakable_scope_condition_variable += 2)   \
-      if (__breakable_scope_condition_variable == 0)
+#define breakable_scope                              \
+  for (auto _breakable_scope_condition_variable = 0; \
+       _breakable_scope_condition_variable < 2;      \
+       _breakable_scope_condition_variable += 1)     \
+    for (; _breakable_scope_condition_variable < 2;  \
+         _breakable_scope_condition_variable += 2)   \
+      if (_breakable_scope_condition_variable == 0)
